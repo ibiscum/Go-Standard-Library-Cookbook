@@ -37,7 +37,11 @@ func main() {
 	// Compare by checksum
 	checksums := []string{}
 	for _, f := range files {
-		f.Seek(0, 0) // reset to beginngin of file
+		_, err := f.Seek(0, 0) // reset to beginning of file
+		if err != nil {
+			panic(err)
+		}
+
 		sum, err := getMD5SumString(f)
 		if err != nil {
 			panic(err)
@@ -50,15 +54,22 @@ func main() {
 	compareCheckSum(checksums[0], checksums[2])
 
 	fmt.Println("### Comparing line by line ###")
-	files[0].Seek(0, 0)
-	files[2].Seek(0, 0)
+	_, err := files[0].Seek(0, 0)
+	if err != nil {
+		panic(err)
+	}
+
+	_, err = files[2].Seek(0, 0)
+	if err != nil {
+		panic(err)
+	}
+
 	compareFileByLine(files[0], files[2])
 
 	// Cleanup
 	for _, val := range data {
 		os.Remove(val.name)
 	}
-
 }
 
 func getMD5SumString(f *os.File) (string, error) {

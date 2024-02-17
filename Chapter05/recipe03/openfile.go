@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"io"
-	"io/ioutil"
 	"os"
 )
 
@@ -14,7 +13,7 @@ func main() {
 		panic(err)
 	}
 
-	c, err := ioutil.ReadAll(f)
+	c, err := io.ReadAll(f)
 	if err != nil {
 		panic(err)
 	}

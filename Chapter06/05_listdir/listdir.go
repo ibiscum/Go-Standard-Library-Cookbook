@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 )
@@ -10,10 +9,10 @@ import (
 func main() {
 
 	fmt.Println("List by ReadDir")
-	listDirByReadDir(".")
+	listDirByReadDir("../../")
 	fmt.Println()
 	fmt.Println("List by Walk")
-	listDirByWalk(".")
+	listDirByWalk("../../")
 }
 
 func listDirByWalk(path string) {
@@ -41,7 +40,7 @@ func listDirByWalk(path string) {
 }
 
 func listDirByReadDir(path string) {
-	lst, err := ioutil.ReadDir(path)
+	lst, err := os.ReadDir(path)
 	if err != nil {
 		panic(err)
 	}

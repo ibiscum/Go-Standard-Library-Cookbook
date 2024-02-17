@@ -20,5 +20,4 @@ func main() {
 	fmt.Printf("Is Directory: %t\n", fi.IsDir())
 	fmt.Printf("Size: %d\n", fi.Size())
 	fmt.Printf("Mode: %v\n", fi.Mode())
-
 }

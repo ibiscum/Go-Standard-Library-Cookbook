@@ -9,14 +9,16 @@ import (
 
 func main() {
 
-	var cmd string
+	var cmd, option string
 	if runtime.GOOS == "windows" {
-		cmd = "timeout"
+		option = "/T 5"
+		cmd = "C:/Windows/System32/timeout.exe"
 	} else {
+		option = "5"
 		cmd = "sleep"
 	}
 
-	proc := exec.Command(cmd, "1")
+	proc := exec.Command(cmd, option)
 	proc.Start()
 
 	// Wait function will

@@ -14,7 +14,7 @@ type User struct {
 }
 
 func (u User) String() string {
-	return fmt.Sprintf(`{"FirstName":%s,"LastName":%s,"Age":%d,"Active":%v }`,
+	return fmt.Sprintf(`{"FirstName":%s,"LastName":%s,"Age":%d,"Active":%v}`,
 		u.FirstName, u.LastName, u.Age, u.Active)
 }
 
@@ -53,5 +53,4 @@ func main() {
 	out2 := SimpleUser{}
 	dec.Decode(&out2)
 	fmt.Println(out2.String())
-
 }

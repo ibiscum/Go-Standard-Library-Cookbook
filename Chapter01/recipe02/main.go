@@ -26,5 +26,4 @@ func main() {
 	for idx, arg := range otherArgs {
 		fmt.Printf("Arg %d = %s \n", idx, arg)
 	}
-
 }

@@ -15,7 +15,8 @@ func main() {
 	// The command line tool
 	// "ping" is executed for
 	// 2 seconds
-	ctx, _ := context.WithTimeout(context.TODO(), timeout)
+	ctx, cancel := context.WithTimeout(context.TODO(), timeout)
+	defer cancel()
 	proc := exec.CommandContext(ctx, cmd, "example.com")
 
 	// The process output is obtained

@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
+	"io"
 	"os"
 
 	"golang.org/x/text/encoding/charmap"
@@ -17,7 +17,11 @@ func main() {
 	if e != nil {
 		panic(e)
 	}
-	ioutil.WriteFile("example.txt", []byte(s), os.ModePerm)
+
+	e = os.WriteFile("example.txt", []byte(s), os.ModePerm)
+	if e != nil {
+		panic(e)
+	}
 
 	// Decode to UTF-8
 	f, e := os.Open("example.txt")
@@ -25,9 +29,10 @@ func main() {
 		panic(e)
 	}
 	defer f.Close()
+
 	decoder := charmap.Windows1252.NewDecoder()
 	reader := decoder.Reader(f)
-	b, err := ioutil.ReadAll(reader)
+	b, err := io.ReadAll(reader)
 	if err != nil {
 		panic(err)
 	}

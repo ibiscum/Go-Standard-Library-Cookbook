@@ -1,11 +1,11 @@
 package main
 
-import "os"
-import "bufio"
-
-import "bytes"
-import "fmt"
-import "io/ioutil"
+import (
+	"bufio"
+	"bytes"
+	"fmt"
+	"os"
+)
 
 func main() {
 
@@ -21,16 +21,18 @@ func main() {
 	wr := bytes.Buffer{}
 	sc := bufio.NewScanner(f)
 	for sc.Scan() {
-		wr.WriteString(sc.Text())
+		_, err = wr.WriteString(sc.Text())
+		if err != nil {
+			panic(err)
+		}
 	}
 	fmt.Println(wr.String())
 
 	fmt.Println("### ReadFile ###")
 	// for smaller files
-	fContent, err := ioutil.ReadFile("temp/file.txt")
+	fContent, err := os.ReadFile("temp/file.txt")
 	if err != nil {
 		panic(err)
 	}
 	fmt.Println(string(fContent))
-
 }

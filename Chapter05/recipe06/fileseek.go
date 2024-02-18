@@ -20,18 +20,23 @@ func main() {
 	if err := writeRecord(2, "first", "Radomir", f); err != nil {
 		panic(err)
 	}
+
 	fmt.Println(readRecords(2, "first", f))
 	if err := writeRecord(10, "first", "Andrew", f); err != nil {
 		panic(err)
 	}
+
 	fmt.Println(readRecords(10, "first", f))
 	fmt.Println(readLine(2, f))
 }
 
 func readLine(line int, f *os.File) (string, error) {
 	lineBuffer := make([]byte, 24)
-	f.Seek(int64(line*lineLegth), 0)
-	_, err := f.Read(lineBuffer)
+	_, err := f.Seek(int64(line*lineLegth), 0)
+	if err != nil {
+		panic(err)
+	}
+	_, err = f.Read(lineBuffer)
 	return string(lineBuffer), err
 }
 
@@ -46,11 +51,11 @@ func writeRecord(line int, column, dataStr string, f *os.File) error {
 	case "last":
 		position += 14
 	default:
-		return errors.New("Column not defined")
+		return errors.New("column not defined")
 	}
 
 	if len([]byte(dataStr)) > definedLen {
-		return fmt.Errorf("Maximum length for '%s' is %d", column, definedLen)
+		return fmt.Errorf("maximum length for '%s' is %d", column, definedLen)
 	}
 
 	data := make([]byte, definedLen)
@@ -64,7 +69,10 @@ func writeRecord(line int, column, dataStr string, f *os.File) error {
 
 func readRecords(line int, column string, f *os.File) (string, error) {
 	lineBuffer := make([]byte, 24)
-	f.ReadAt(lineBuffer, int64(line*lineLegth))
+	_, err := f.ReadAt(lineBuffer, int64(line*lineLegth))
+	if err != nil {
+		panic(err)
+	}
 	var retVal string
 	switch column {
 	case "id":
@@ -75,5 +83,5 @@ func readRecords(line int, column string, f *os.File) (string, error) {
 		return string(lineBuffer[14:23]), nil
 	}
 
-	return retVal, errors.New("Column not defined")
+	return retVal, errors.New("column not defined")
 }

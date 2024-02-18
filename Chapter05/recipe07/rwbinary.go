@@ -22,10 +22,12 @@ func main() {
 	if err := binary.Read(buf, binary.BigEndian, &num); err != nil {
 		panic(err)
 	}
+
 	fmt.Printf("float64: %.3f\n", num)
 	greeting := make([]byte, 5)
 	if err := binary.Read(buf, binary.BigEndian, &greeting); err != nil {
 		panic(err)
 	}
+
 	fmt.Printf("string: %s\n", string(greeting))
 }

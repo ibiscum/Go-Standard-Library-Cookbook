@@ -5,12 +5,18 @@ import (
 	"log"
 	"os"
 	"os/exec"
+	"runtime"
 )
 
 func main() {
 	pReader, pWriter := io.Pipe()
 
-	cmd := exec.Command("echo", "Hello Go!\nThis is example")
+	var cmd *exec.Cmd
+	if runtime.GOOS == "windows" {
+		cmd = exec.Command("C:/daten/msys64/usr/bin/echo.exe", "Hello Go!\nThis is an example")
+	} else {
+		cmd = exec.Command("/usr/bin/echo", "Hello Go!\nThis is an example")
+	}
 	cmd.Stdout = pWriter
 
 	go func() {
@@ -23,5 +29,4 @@ func main() {
 	if err := cmd.Run(); err != nil {
 		log.Fatal(err)
 	}
-
 }

@@ -11,5 +11,4 @@ The binary was build by GO: %s`
 
 func main() {
 	log.Printf(info, "Example", runtime.Version())
-
 }

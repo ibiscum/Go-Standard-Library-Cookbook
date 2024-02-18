@@ -30,6 +30,7 @@ func main() {
 		panic(err)
 	}
 	defer client.Close()
+
 	args := &Args{
 		A: 2,
 		B: 3,
@@ -37,7 +38,7 @@ func main() {
 	var result Result
 	err = client.Call("RpcServer.Add", args, &result)
 	if err != nil {
-		log.Fatalf("error in RpcServer", err)
+		log.Fatalf("error in RpcServer: %v", err)
 	}
 	log.Printf("%d+%d=%d\n", args.A, args.B, result)
 }

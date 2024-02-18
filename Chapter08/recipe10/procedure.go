@@ -10,7 +10,7 @@ import (
 
 const call = "select * from format_name($1,$2,$3)"
 
-const callMySQL = "CALL simpleproc(?)"
+// const callMySQL = "CALL simpleproc(?)"
 
 type Result struct {
 	Name     string

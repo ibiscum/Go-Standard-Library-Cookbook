@@ -2,16 +2,17 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 )
 
 const addr = "localhost:7070"
 
-type RedirecServer struct {
+type RedirectServer struct {
 	redirectCount int
 }
 
-func (s *RedirecServer) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
+func (s *RedirectServer) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
 	s.redirectCount++
 	fmt.Println("Received header: " + req.Header.Get("Known-redirects"))
 	http.Redirect(rw, req, fmt.Sprintf("/redirect%d", s.redirectCount), http.StatusTemporaryRedirect)
@@ -20,9 +21,15 @@ func (s *RedirecServer) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
 func main() {
 	s := http.Server{
 		Addr:    addr,
-		Handler: &RedirecServer{0},
+		Handler: &RedirectServer{0},
 	}
-	go s.ListenAndServe()
+
+	go func() {
+		err := s.ListenAndServe()
+		if err != nil {
+			log.Fatal(err)
+		}
+	}()
 
 	client := http.Client{}
 	redirectCount := 0
@@ -32,7 +39,7 @@ func main() {
 	client.CheckRedirect = func(req *http.Request, via []*http.Request) error {
 		fmt.Println("Redirected")
 		if redirectCount > 2 {
-			return fmt.Errorf("Too many redirects")
+			return fmt.Errorf("too many redirects")
 		}
 		req.Header.Set("Known-redirects", fmt.Sprintf("%d", redirectCount))
 		redirectCount++

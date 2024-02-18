@@ -5,7 +5,6 @@ import (
 	"bytes"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"log"
 	"os"
 )
@@ -30,7 +29,7 @@ func main() {
 	}
 
 	//Write output to file
-	err = ioutil.WriteFile("data.zip", buff.Bytes(), os.ModePerm)
+	err = os.WriteFile("data.zip", buff.Bytes(), os.ModePerm)
 	if err != nil {
 		panic(err)
 	}

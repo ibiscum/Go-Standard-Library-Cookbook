@@ -38,9 +38,11 @@ func main() {
 				return
 			default:
 				log.Println("Writing to log")
-				io.WriteString(writer, fmt.Sprintf("Logging access %s\n", time.Now().String()))
+				_, err = io.WriteString(writer, fmt.Sprintf("Logging access %s\n", time.Now().String()))
+				if err != nil {
+					log.Fatal(err)
+				}
 			}
-
 		}
 	}()
 
@@ -64,6 +66,9 @@ func main() {
 }
 
 func releaseAllResources() {
-	io.WriteString(writer, "Application releasing all resources\n")
+	_, err := io.WriteString(writer, "Application releasing all resources\n")
+	if err != nil {
+		log.Fatal(err)
+	}
 	writer.Close()
 }

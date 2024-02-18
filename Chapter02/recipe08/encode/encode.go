@@ -2,6 +2,7 @@ package main
 
 import (
 	"io"
+	"log"
 	"os"
 
 	"golang.org/x/text/encoding/charmap"
@@ -18,6 +19,8 @@ func main() {
 	// Decode to unicode
 	encoder := charmap.Windows1250.NewEncoder()
 	writer := encoder.Writer(f)
-	io.WriteString(writer, "Gdańsk")
-
+	_, err = io.WriteString(writer, "Gdańsk")
+	if err != nil {
+		log.Fatal(err)
+	}
 }

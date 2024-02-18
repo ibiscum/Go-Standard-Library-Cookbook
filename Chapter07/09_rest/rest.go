@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"io/ioutil"
+	"log"
 	"net/http"
 	"strconv"
 	"strings"
@@ -19,14 +19,17 @@ type City struct {
 }
 
 func (c City) toJson() string {
-	return fmt.Sprintf(`{"name":"%s","location":"%s"}`,
-		c.Name,
-		c.Location)
+	return fmt.Sprintf(`{"name":"%s","location":"%s"}`, c.Name, c.Location)
 }
 
 func main() {
 	s := createServer(addr)
-	go s.ListenAndServe()
+	go func() {
+		err := s.ListenAndServe()
+		if err != nil {
+			log.Fatal(err)
+		}
+	}()
 
 	cities, err := getCities()
 	if err != nil {
@@ -39,13 +42,10 @@ func main() {
 		panic(err)
 	}
 	fmt.Printf("Saved city: %v\n", city)
-
 }
 
 func saveCity(city City) (City, error) {
-	r, err := http.Post("http://"+addr+"/cities",
-		"application/json",
-		strings.NewReader(city.toJson()))
+	r, err := http.Post("http://"+addr+"/cities", "application/json", strings.NewReader(city.toJson()))
 	if err != nil {
 		return City{}, err
 	}
@@ -77,25 +77,33 @@ func decodeCities(r io.Reader) ([]City, error) {
 }
 
 func createServer(addr string) http.Server {
-	cities := []City{City{"1", "Prague", "Czechia"}, City{"2", "Bratislava", "Slovakia"}}
+	cities := []City{{"1", "Prague", "Czechia"}, {"2", "Bratislava", "Slovakia"}}
 	mux := http.NewServeMux()
 	mux.HandleFunc("/cities", func(w http.ResponseWriter, r *http.Request) {
 		enc := json.NewEncoder(w)
 		if r.Method == http.MethodGet {
-			enc.Encode(cities)
+			err := enc.Encode(cities)
+			if err != nil {
+				log.Fatal(err)
+			}
 		} else if r.Method == http.MethodPost {
-			data, err := ioutil.ReadAll(r.Body)
+			data, err := io.ReadAll(r.Body)
 			if err != nil {
 				http.Error(w, err.Error(), 500)
 			}
 			r.Body.Close()
 			city := City{}
-			json.Unmarshal(data, &city)
+			err = json.Unmarshal(data, &city)
+			if err != nil {
+				log.Fatal(err)
+			}
 			city.ID = strconv.Itoa(len(cities) + 1)
 			cities = append(cities, city)
-			enc.Encode(city)
+			err = enc.Encode(city)
+			if err != nil {
+				log.Fatal(err)
+			}
 		}
-
 	})
 	return http.Server{
 		Addr:    addr,

@@ -21,7 +21,8 @@ func main() {
 		panic(err)
 	}
 	fmt.Println("Ping OK.")
-	ctx, _ := context.WithTimeout(context.Background(), time.Nanosecond)
+	ctx, cancel := context.WithTimeout(context.Background(), time.Nanosecond)
+	defer cancel()
 	err = db.PingContext(ctx)
 	if err != nil {
 		fmt.Println("Error: " + err.Error())
@@ -38,5 +39,4 @@ func main() {
 		panic(err)
 	}
 	fmt.Println("Connection Ping OK.")
-
 }

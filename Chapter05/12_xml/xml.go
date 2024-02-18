@@ -3,6 +3,8 @@ package main
 import (
 	"encoding/xml"
 	"fmt"
+	"io"
+	"log"
 	"os"
 )
 
@@ -24,8 +26,8 @@ func main() {
 	books := make([]Book, 0)
 	for {
 		tok, err := decoder.Token()
-		if err != nil {
-			panic(err)
+		if err != io.EOF && err != nil {
+			log.Fatal("ERROR: ", err)
 		}
 		if tok == nil {
 			break
@@ -35,7 +37,10 @@ func main() {
 			if tp.Name.Local == "book" {
 				// Decode the element to struct
 				var b Book
-				decoder.DecodeElement(&b, &tp)
+				err = decoder.DecodeElement(&b, &tp)
+				if err != nil {
+					log.Fatal(err)
+				}
 				books = append(books, b)
 			}
 		}

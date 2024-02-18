@@ -25,8 +25,8 @@ func main() {
 		syscall.SIGHUP,
 		syscall.SIGINT,
 		syscall.SIGTERM,
-		syscall.SIGQUIT,
-		syscall.SIGKILL)
+		syscall.SIGQUIT)
+	//syscall.SIGKILL
 
 	// Create channel to wait till the
 	// signal is handled.
@@ -46,9 +46,9 @@ func main() {
 			fmt.Println("kill SIGTERM was executed for process")
 			exitChan <- 1
 
-		case syscall.SIGKILL:
-			fmt.Println("SIGKILL handler")
-			exitChan <- 1
+		// case syscall.SIGKILL:
+		// 	fmt.Println("SIGKILL handler")
+		// 	exitChan <- 1
 
 		case syscall.SIGQUIT:
 			fmt.Println("kill SIGQUIT was executed for process")

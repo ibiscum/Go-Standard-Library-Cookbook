@@ -2,7 +2,8 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
+	"io"
+	"log"
 	"os"
 	"strings"
 
@@ -19,7 +20,7 @@ func main() {
 	defer f.Close()
 
 	// Read all in raw form.
-	b, err := ioutil.ReadAll(f)
+	b, err := io.ReadAll(f)
 	if err != nil {
 		panic(err)
 	}
@@ -30,10 +31,9 @@ func main() {
 	// Decode to unicode
 	decoder := charmap.Windows1250.NewDecoder()
 	reader := decoder.Reader(strings.NewReader(content))
-	b, err = ioutil.ReadAll(reader)
+	b, err = io.ReadAll(reader)
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 	fmt.Println("Decoded: " + string(b))
-
 }

@@ -5,6 +5,7 @@ import (
 	"context"
 	"fmt"
 	"io"
+	"log"
 	"net"
 	"net/http"
 	"time"
@@ -27,7 +28,12 @@ const addr = "localhost:7070"
 
 func main() {
 	s := createServer(addr)
-	go s.ListenAndServe()
+	go func() {
+		err := s.ListenAndServe()
+		if err != nil {
+			log.Fatal(err)
+		}
+	}()
 
 	// Connect with plain TCP
 	conn, err := net.Dial("tcp", addr)
@@ -42,12 +48,20 @@ func main() {
 	}
 
 	scanner := bufio.NewScanner(conn)
-	conn.SetReadDeadline(time.Now().Add(time.Second))
+	err = conn.SetReadDeadline(time.Now().Add(time.Second))
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	for scanner.Scan() {
 		fmt.Println(scanner.Text())
 	}
 
-	ctx, _ := context.WithTimeout(context.Background(), 5*time.Second)
-	s.Shutdown(ctx)
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	err = s.Shutdown(ctx)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 }

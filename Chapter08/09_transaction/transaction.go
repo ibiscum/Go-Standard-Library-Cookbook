@@ -49,7 +49,7 @@ func main() {
 
 	fmt.Println("\nTransaction with context")
 	ctx, canc := context.WithCancel(context.Background())
-	tx, err = db.BeginTx(ctx, &sql.TxOptions{sql.LevelReadUncommitted, false})
+	tx, err = db.BeginTx(ctx, &sql.TxOptions{Isolation: sql.LevelReadUncommitted, ReadOnly: false})
 	if err != nil {
 		panic(err)
 	}

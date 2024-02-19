@@ -9,7 +9,7 @@ import (
 
 func main() {
 
-	log.Println("Staring server...")
+	log.Println("Starting server...")
 	// Adding to mani Mux
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		if p, ok := w.(http.Pusher); ok {

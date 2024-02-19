@@ -8,4 +8,4 @@ CREATE TABLE post (
 SELECT * FROM post;
 INSERT INTO post(ID,TITLE,CONTENT) VALUES
     (1,'Title One','Content One'),
-    (2,'Title Two','Content Two');
+    (2,NULL,'Content Two');

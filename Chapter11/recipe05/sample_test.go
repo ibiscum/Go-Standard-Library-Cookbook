@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -39,7 +39,7 @@ func TestHttpRequest(t *testing.T) {
 		t.Fatal("Cannot find " + cookieName)
 	}
 
-	content, err := ioutil.ReadAll(w.Result().Body)
+	content, err := io.ReadAll(w.Result().Body)
 	if err != nil {
 		t.Fatal("Cannot read response body")
 	}

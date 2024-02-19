@@ -6,6 +6,6 @@ CREATE TABLE post (
     CONSTRAINT pk_post PRIMARY KEY(ID)
 );
 SELECT * FROM post;
-INSERT INTO post(ID,TITLE,CONTENT) VALUES
+    INSERT INTO post(ID,TITLE,CONTENT) VALUES
     (1,'Title One','Content One'),
-    (2,'Title Two','Content Two');
+    (2,NULL,'Content Two');

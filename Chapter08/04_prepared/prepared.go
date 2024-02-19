@@ -31,10 +31,10 @@ func main() {
 	}
 
 	stm, err := db.Prepare(ins)
-	defer stm.Close()
 	if err != nil {
 		panic(err)
 	}
+	defer stm.Close()
 
 	inserted := int64(0)
 	for _, val := range testTable {
@@ -50,7 +50,6 @@ func main() {
 	}
 
 	fmt.Printf("Result: Inserted %d rows.\n", inserted)
-
 }
 
 func createConnection() *sql.DB {

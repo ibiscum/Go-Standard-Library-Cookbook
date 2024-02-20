@@ -9,7 +9,8 @@ const bin = "10111"
 const hex = "1A"
 const oct = "12"
 const dec = "10"
-const floatNum = 16.123557
+
+// const floatNum = 16.123557
 
 func main() {
 

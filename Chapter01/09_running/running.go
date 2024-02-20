@@ -15,7 +15,10 @@ func main() {
 		cmd = "sleep"
 	}
 	proc := exec.Command(cmd, "1")
-	proc.Start()
+	err := proc.Start()
+	if err != nil {
+		panic(err)
+	}
 
 	// No process state is returned
 	// till the process finish.

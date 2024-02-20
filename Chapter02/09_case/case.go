@@ -4,6 +4,9 @@ import (
 	"fmt"
 	"strings"
 	"unicode"
+
+	"golang.org/x/text/cases"
+	"golang.org/x/text/language"
 )
 
 const email = "ExamPle@domain.com"
@@ -40,14 +43,15 @@ func main() {
 	title := strings.ToTitle(i)
 	titleTurk := strings.ToTitleSpecial(unicode.TurkishCase, i)
 	if title != titleTurk {
-		fmt.Printf("ToTitle is defferent: %#U vs. %#U \n",
+		fmt.Printf("ToTitle is different: %#U vs. %#U \n",
 			title[0],
 			[]rune(titleTurk)[0])
 	}
 
 	// In some cases the input
 	// needs to be corrected in case.
-	correctNameCase := strings.Title(name)
+	caser := cases.Title(language.BritishEnglish)
+	correctNameCase := caser.String(name)
 	fmt.Println("Corrected name: " + correctNameCase)
 
 	// Converting the snake case
@@ -59,7 +63,8 @@ func main() {
 }
 
 func toCamelCase(input string) string {
-	titleSpace := strings.Title(strings.Replace(input, "_", " ", -1))
+	caser := cases.Title(language.Und)
+	titleSpace := caser.String(strings.Replace(input, "_", " ", -1))
 	camel := strings.Replace(titleSpace, " ", "", -1)
 	return strings.ToLower(camel[:1]) + camel[1:]
 }

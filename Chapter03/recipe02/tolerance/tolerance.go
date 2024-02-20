@@ -33,8 +33,6 @@ const TOLERANCE = 1e-8
 // with tolerance 1e-8
 func Equals(numA, numB float64) bool {
 	delta := math.Abs(numA - numB)
-	if delta < TOLERANCE {
-		return true
-	}
-	return false
+
+	return delta < TOLERANCE
 }

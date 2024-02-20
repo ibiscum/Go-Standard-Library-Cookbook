@@ -29,11 +29,14 @@ func main() {
 	// To avoid race conditions
 	// in this example. We wait till
 	// the process exit.
-	proc.Run()
+	err := proc.Run()
+	if err != nil {
+		panic(err)
+	}
 
 	// The process writes the output to
 	// to buffer and we use the bytes
 	// to print the output.
-	fmt.Println(string(buf.Bytes()))
+	fmt.Println(buf.String())
 
 }

@@ -15,7 +15,7 @@ func main() {
 	fmt.Println(trimResult)
 
 	stringWithSpaces := "\t\t\n   Go \tis\n Awesome \t\t"
-	r := regexp.MustCompile("\\s+")
+	r := regexp.MustCompile(`\\s+`)
 	replace := r.ReplaceAllString(stringWithSpaces, " ")
 	fmt.Println(replace)
 

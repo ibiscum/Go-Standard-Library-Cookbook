@@ -35,18 +35,33 @@ func main() {
 	}()
 
 	// Start the process
-	proc.Start()
+	err := proc.Start()
+	if err != nil {
+		panic(err)
+	}
 
 	// Now the the following lines
 	// are written to child
 	// process standard input
 	fmt.Println("Writing input")
-	io.WriteString(stdin, "Hello\n")
-	io.WriteString(stdin, "Golang\n")
-	io.WriteString(stdin, "is awesome\n")
+	_, err = io.WriteString(stdin, "Hello\n")
+	if err != nil {
+		panic(err)
+	}
+	_, err = io.WriteString(stdin, "Golang\n")
+	if err != nil {
+		panic(err)
+	}
+	_, err = io.WriteString(stdin, "is awesome\n")
+	if err != nil {
+		panic(err)
+	}
 
 	time.Sleep(time.Second * 2)
 
-	proc.Process.Kill()
+	err = proc.Process.Kill()
+	if err != nil {
+		panic(err)
+	}
 
 }

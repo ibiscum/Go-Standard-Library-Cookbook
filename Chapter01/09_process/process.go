@@ -19,11 +19,17 @@ func main() {
 	}
 
 	proc := exec.Command(cmd, option)
-	proc.Start()
+	err := proc.Start()
+	if err != nil {
+		panic(err)
+	}
 
 	// Wait function will
 	// wait till the process ends.
-	proc.Wait()
+	err = proc.Wait()
+	if err != nil {
+		panic(err)
+	}
 
 	// After the process terminates
 	// the *os.ProcessState contains

@@ -11,7 +11,7 @@ const refString = `[{ \"email\": \"email@example.com\" \"phone\": 555467890},
 func main() {
 
 	// This pattern is simplified for brevity
-	emailRegexp := regexp.MustCompile("[a-zA-Z0-9]{1,}@[a-zA-Z0-9]{1,}\\.[a-z]{1,}")
+	emailRegexp := regexp.MustCompile(`[a-zA-Z0-9]{1,}@[a-zA-Z0-9]{1,}\\.[a-z]{1,}`)
 	first := emailRegexp.FindString(refString)
 	fmt.Println("First: ")
 	fmt.Println(first)

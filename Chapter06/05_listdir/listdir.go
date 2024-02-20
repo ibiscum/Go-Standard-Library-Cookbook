@@ -9,14 +9,14 @@ import (
 func main() {
 
 	fmt.Println("List by ReadDir")
-	listDirByReadDir("../../")
+	listDirByReadDir("../../../")
 	fmt.Println()
 	fmt.Println("List by Walk")
-	listDirByWalk("../../")
+	listDirByWalk("../../../")
 }
 
 func listDirByWalk(path string) {
-	filepath.Walk(path, func(wPath string, info os.FileInfo, err error) error {
+	err := filepath.Walk(path, func(wPath string, info os.FileInfo, err error) error {
 
 		// Walk the given dir
 		// without printing out.
@@ -37,6 +37,9 @@ func listDirByWalk(path string) {
 		}
 		return nil
 	})
+	if err != nil {
+		panic(err)
+	}
 }
 
 func listDirByReadDir(path string) {

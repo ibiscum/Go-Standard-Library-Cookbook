@@ -21,7 +21,10 @@ func main() {
 	}
 	fmt.Println("Serialized as RFC 3339:", string(b))
 	t2 := time.Time{}
-	t2.UnmarshalJSON(b)
+	err = t2.UnmarshalJSON(b)
+	if err != nil {
+		panic(err)
+	}
 	fmt.Println("Deserialized from RFC 3339:", t2)
 
 	// Serialize as epoch
@@ -33,7 +36,12 @@ func main() {
 	data := struct {
 		Created int64 `json:"created"`
 	}{}
-	json.Unmarshal([]byte(jsonStr), &data)
+
+	err = json.Unmarshal([]byte(jsonStr), &data)
+	if err != nil {
+		panic(err)
+	}
+
 	deserialized := time.Unix(data.Created, 0)
 	fmt.Println("Deserialized from Epoch:", deserialized)
 

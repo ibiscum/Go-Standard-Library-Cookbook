@@ -19,15 +19,25 @@ func main() {
 	// Secured API
 	mux := http.NewServeMux()
 	mux.HandleFunc("/api/users", Secure(func(w http.ResponseWriter, r *http.Request) {
-		io.WriteString(w,
+		_, err := io.WriteString(w,
 			`[{"id":"1","login":"ffghi"},{"id":"2","login":"ffghj"}]`)
-	}))
-	mux.HandleFunc("/api/profile", WithUser(func(u User, w http.ResponseWriter, r *http.Request) {
-		log.Println(u.toString())
-		io.WriteString(w, "{\"user\":\""+u.toString()+"\"}")
+		if err != nil {
+			log.Fatal(err)
+		}
 	}))
 
-	http.ListenAndServe(":8080", mux)
+	mux.HandleFunc("/api/profile", WithUser(func(u User, w http.ResponseWriter, r *http.Request) {
+		log.Println(u.toString())
+		_, err := io.WriteString(w, "{\"user\":\""+u.toString()+"\"}")
+		if err != nil {
+			log.Fatal(err)
+		}
+	}))
+
+	err := http.ListenAndServe(":8080", mux)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 }
 

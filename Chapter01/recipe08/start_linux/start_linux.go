@@ -5,6 +5,7 @@ package main
 import (
 	"bytes"
 	"fmt"
+	"log"
 	"os/exec"
 )
 
@@ -18,7 +19,10 @@ func main() {
 		fmt.Println(err)
 	}
 
-	prc.Wait()
+	err = prc.Wait()
+	if err != nil {
+		log.Panic(err)
+	}
 
 	if prc.ProcessState.Success() {
 		fmt.Println("Process run successfully with output:")

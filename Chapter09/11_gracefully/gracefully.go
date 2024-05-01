@@ -27,7 +27,7 @@ func main() {
 
 	log.Println("Server listening on : " + srv.Addr)
 
-	stopChan := make(chan os.Signal)
+	stopChan := make(chan os.Signal, 1)
 	signal.Notify(stopChan, os.Interrupt)
 
 	<-stopChan // wait for SIGINT
@@ -36,7 +36,10 @@ func main() {
 	ctx, cancel := context.WithTimeout(
 		context.Background(),
 		30*time.Second)
-	srv.Shutdown(ctx)
+	err := srv.Shutdown(ctx)
+	if err != nil {
+		log.Panic(err)
+	}
 	cancel()
 	log.Println("Server gracefully stopped")
 }

@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -17,9 +18,15 @@ func HandlerUnderTest(w http.ResponseWriter, r *http.Request) {
 		Expires: time.Now().Add(3 * time.Hour),
 		Name:    cookieName,
 	})
-	r.ParseForm()
+	err := r.ParseForm()
+	if err != nil {
+		log.Panic(err)
+	}
 	username := r.FormValue("username")
-	fmt.Fprintf(w, "Hello %s!", username)
+	_, err = fmt.Fprintf(w, "Hello %s!", username)
+	if err != nil {
+		log.Panic(err)
+	}
 }
 
 func TestHttpRequest(t *testing.T) {

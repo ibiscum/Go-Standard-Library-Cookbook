@@ -14,7 +14,10 @@ import (
 type StringServer string
 
 func (s StringServer) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
-	rw.Write([]byte(string(s)))
+	_, err := rw.Write([]byte(string(s)))
+	if err != nil {
+		log.Panic(err)
+	}
 }
 
 func createServer(addr string) http.Server {

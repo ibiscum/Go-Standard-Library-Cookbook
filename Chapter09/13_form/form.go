@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 )
 
@@ -9,11 +10,17 @@ type StringServer string
 
 func (s StringServer) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
 	fmt.Printf("Prior ParseForm: %v\n", req.Form)
-	req.ParseForm()
+	err := req.ParseForm()
+	if err != nil {
+		log.Printf("%s", err)
+	}
 	fmt.Printf("Post ParseForm: %v\n", req.Form)
 	fmt.Println("Param1 is : " + req.Form.Get("param1"))
 	fmt.Printf("PostForm : %v\n", req.PostForm)
-	rw.Write([]byte(string(s)))
+	_, err = rw.Write([]byte(string(s)))
+	if err != nil {
+		log.Printf("%s", err)
+	}
 }
 
 func createServer(addr string) http.Server {

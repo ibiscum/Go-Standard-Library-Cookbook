@@ -17,7 +17,10 @@ func (s StringServer) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
 		log.Fatal(err)
 	}
 	fmt.Printf("Received form data: %v\n", req.Form)
-	rw.Write([]byte(string(s)))
+	_, err = rw.Write([]byte(string(s)))
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 func createServer(addr string) http.Server {

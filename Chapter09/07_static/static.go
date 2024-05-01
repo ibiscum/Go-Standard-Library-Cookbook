@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"net/http"
 )
 
@@ -11,7 +12,10 @@ func main() {
 
 	http.HandleFunc("/welcome", serveWelcome)
 	http.Handle("/html/", fileSrv)
-	http.ListenAndServe(":8080", nil)
+	err := http.ListenAndServe(":8080", nil)
+	if err != nil {
+		log.Panic(err)
+	}
 }
 
 func serveWelcome(w http.ResponseWriter, r *http.Request) {

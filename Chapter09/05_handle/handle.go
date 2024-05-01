@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 )
 
@@ -34,6 +35,9 @@ func main() {
 		http.StripPrefix("/admin", adminMux))
 
 	// Default server
-	http.ListenAndServe(":8080", mux)
+	err := http.ListenAndServe(":8080", mux)
+	if err != nil {
+		log.Panic(err)
+	}
 
 }

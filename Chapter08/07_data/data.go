@@ -3,6 +3,7 @@ package main
 import (
 	"database/sql"
 	"fmt"
+	"log"
 
 	_ "github.com/lib/pq"
 )
@@ -45,7 +46,10 @@ func main() {
 			if rs.Err() != nil {
 				panic(rs.Err())
 			}
-			rs.Scan(&num)
+			err := rs.Scan(&num)
+			if err != nil {
+				log.Panic(err)
+			}
 		}
 	}
 

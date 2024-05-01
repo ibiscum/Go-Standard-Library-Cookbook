@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"io"
+	"log"
 	"os"
 )
 
@@ -10,12 +11,12 @@ func main() {
 
 	f, err := os.Open("temp/file.txt")
 	if err != nil {
-		panic(err)
+		log.Panic(err)
 	}
 
 	c, err := io.ReadAll(f)
 	if err != nil {
-		panic(err)
+		log.Panic(err)
 	}
 
 	fmt.Printf("### File content ###\n%s\n", string(c))
@@ -25,7 +26,10 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	io.WriteString(f, "Test string")
+	_, err = io.WriteString(f, "Test string")
+	if err != nil {
+		log.Fatal(err)
+	}
 	f.Close()
 
 }

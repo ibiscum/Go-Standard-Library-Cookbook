@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"context"
 	"fmt"
+	"log"
 	"os/exec"
 	"time"
 )
@@ -26,7 +27,10 @@ func main() {
 	defer stdout.Close()
 
 	// Start the process
-	proc.Start()
+	err := proc.Start()
+	if err != nil {
+		log.Panic(err)
+	}
 
 	// For more comfortable reading the
 	// bufio.Scanner is used.

@@ -17,7 +17,7 @@ func main() {
 				fmt.Printf("Push err : %v", err)
 			}
 		}
-		io.WriteString(w,
+		_, err := io.WriteString(w,
 			`<html>
 				<head>
 					<link rel="stylesheet" type="text/css" href="app.css">
@@ -26,13 +26,19 @@ func main() {
 						<p>Hello</p>
 				</body>
 			</html>`)
+		if err != nil {
+			log.Fatal(err)
+		}
 	})
 	http.HandleFunc("/app.css", func(w http.ResponseWriter, r *http.Request) {
-		io.WriteString(w,
+		_, err := io.WriteString(w,
 			`p {
 				text-align: left;
 				color: red;
 			}`)
+		if err != nil {
+			log.Fatal(err)
+		}
 	})
 
 	if err := http.ListenAndServeTLS(":8080", "server.crt", "server.key", nil); err != nil {

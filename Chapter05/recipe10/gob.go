@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/gob"
 	"fmt"
+	"log"
 )
 
 type User struct {
@@ -40,17 +41,29 @@ func main() {
 		30,
 		true,
 	}
-	enc.Encode(user)
+	err := enc.Encode(user)
+	if err != nil {
+		log.Panic(err)
+	}
 	fmt.Printf("%X\n", buff.Bytes())
 
 	// Decode value
 	out := User{}
 	dec := gob.NewDecoder(&buff)
-	dec.Decode(&out)
+	err = dec.Decode(&out)
+	if err != nil {
+		log.Panic(err)
+	}
 	fmt.Println(out.String())
 
-	enc.Encode(user)
+	err = enc.Encode(user)
+	if err != nil {
+		log.Panic(err)
+	}
 	out2 := SimpleUser{}
-	dec.Decode(&out2)
+	err = dec.Decode(&out2)
+	if err != nil {
+		log.Panic(err)
+	}
 	fmt.Println(out2.String())
 }

@@ -54,5 +54,4 @@ func main() {
 	for i := 0; i < 10; i++ {
 		fmt.Printf("Val: %v stored at idx: %d\n", l.Load(i), i)
 	}
-
 }

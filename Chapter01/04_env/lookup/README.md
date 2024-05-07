@@ -1,0 +1,1 @@
+unset DB_CONN && go run lookup.go

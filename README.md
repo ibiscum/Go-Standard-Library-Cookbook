@@ -2,6 +2,8 @@
 
 
 # Go Standard Library Cookbook
+[![lint](https://github.com/ibiscum/Go-Standard-Library-Cookbook/actions/workflows/lint.yml/badge.svg)](https://github.com/ibiscum/Go-Standard-Library-Cookbook/actions/workflows/lint.yml)
+
 This is the code repository for [Go Standard Library Cookbook](https://www.packtpub.com/application-development/go-standard-library-cookbook?utm_source=github&utm_medium=repository&utm_campaign=9781788475273), published by [Packt](https://www.packtpub.com/?utm_source=github). It contains all the supporting project files necessary to work through the book from start to finish.
 ## About the Book
 The book begins with exploring the functionalities available for interaction with the environment and the operating system. We will explore common string operations, date/time manipulations, and numerical problems. We’ll then move on to working with the database, accessing the filesystem, and performing I/O operations. From a networking perspective, we will touch client and server-side solutions. The basics of concurrency are also covered before we wrap up with a few tips and tricks.

@@ -37,5 +37,5 @@ func main() {
 	// about the process run
 	fmt.Printf("PID: %d\n", proc.ProcessState.Pid())
 	fmt.Printf("Process took: %dms\n", proc.ProcessState.SystemTime()/time.Microsecond)
-	fmt.Printf("Exited sucessfuly : %t\n", proc.ProcessState.Success())
+	fmt.Printf("Exited sucessfully : %t\n", proc.ProcessState.Success())
 }

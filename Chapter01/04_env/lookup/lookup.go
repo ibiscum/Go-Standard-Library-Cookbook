@@ -11,7 +11,7 @@ func main() {
 	key := "DB_CONN"
 	connStr, ex := os.LookupEnv(key)
 	if !ex {
-		log.Printf("The env variable %s is not set.\n", key)
+		log.Printf("The env variable %s is not set.", key)
 	}
 	fmt.Println(connStr)
 }

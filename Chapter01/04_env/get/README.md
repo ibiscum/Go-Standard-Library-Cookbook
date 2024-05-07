@@ -1,0 +1,1 @@
+    export DB_CONN=db:/user@example && go run get.go

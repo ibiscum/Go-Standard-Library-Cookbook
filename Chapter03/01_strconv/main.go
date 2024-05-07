@@ -24,7 +24,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Printf("Parsed hexadecima: %d\n", res64)
+	fmt.Printf("Parsed hexadecimal: %d\n", res64)
 
 	// Parsing binary values
 	resBin, err := strconv.ParseInt(bin, 2, 32)

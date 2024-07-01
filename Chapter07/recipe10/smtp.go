@@ -3,6 +3,7 @@ package main
 import (
 	"crypto/tls"
 	"fmt"
+	"log"
 	"net/smtp"
 )
 
@@ -10,11 +11,17 @@ func main() {
 
 	var email string
 	fmt.Println("Enter username for smtp: ")
-	fmt.Scanln(&email)
+	_, err := fmt.Scanln(&email)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	var pass string
 	fmt.Println("Enter password for smtp: ")
-	fmt.Scanln(&pass)
+	_, err = fmt.Scanln(&pass)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	auth := smtp.PlainAuth("",
 		email,

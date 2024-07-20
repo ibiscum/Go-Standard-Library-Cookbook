@@ -7,23 +7,6 @@ import (
 	"unicode"
 )
 
-func main() {
-
-	text := "Hi! Go is awesome."
-	text = Indent(text, 6)
-	fmt.Println(text)
-
-	text = Unindent(text, 3)
-	fmt.Println(text)
-
-	text = Unindent(text, 10)
-	fmt.Println(text)
-
-	text = IndentByRune(text, 10, '.')
-	fmt.Println(text)
-
-}
-
 // Indent indenting the input by given indent and rune
 func IndentByRune(input string, indent int, r rune) string {
 	return strings.Repeat(string(r), indent) + input
@@ -51,4 +34,21 @@ func Unindent(input string, indent int) string {
 	}
 
 	return input[count:]
+}
+
+func main() {
+
+	text := "Hi! Go is awesome."
+	text = Indent(text, 6)
+	fmt.Println(text)
+
+	text = Unindent(text, 3)
+	fmt.Println(text)
+
+	text = Unindent(text, 10)
+	fmt.Println(text)
+
+	text = IndentByRune(text, 10, '.')
+	fmt.Println(text)
+
 }

@@ -9,12 +9,9 @@ import (
 
 func main() {
 
-	// Create the channel where the received
-	// signal would be sent. The Notify
-	// will not block when the signal
-	// is sent and the channel is not ready.
-	// So it is better to
-	// create buffered channel.
+	// Create the channel where the received signal would be sent.
+	// The Notify will not block when the signal is sent and the channel is not ready.
+	// So it is better to create a buffered channel.
 	sChan := make(chan os.Signal, 1)
 
 	// Notify will catch the

@@ -22,28 +22,6 @@ func (c City) toJson() string {
 	return fmt.Sprintf(`{"name":"%s","location":"%s"}`, c.Name, c.Location)
 }
 
-func main() {
-	s := createServer(addr)
-	go func() {
-		err := s.ListenAndServe()
-		if err != nil {
-			log.Fatal(err)
-		}
-	}()
-
-	cities, err := getCities()
-	if err != nil {
-		panic(err)
-	}
-	fmt.Printf("Retrived cities: %v\n", cities)
-
-	city, err := saveCity(City{"", "Paris", "France"})
-	if err != nil {
-		panic(err)
-	}
-	fmt.Printf("Saved city: %v\n", city)
-}
-
 func saveCity(city City) (City, error) {
 	r, err := http.Post("http://"+addr+"/cities", "application/json", strings.NewReader(city.toJson()))
 	if err != nil {
@@ -109,4 +87,26 @@ func createServer(addr string) http.Server {
 		Addr:    addr,
 		Handler: mux,
 	}
+}
+
+func main() {
+	s := createServer(addr)
+	go func() {
+		err := s.ListenAndServe()
+		if err != nil {
+			log.Fatal(err)
+		}
+	}()
+
+	cities, err := getCities()
+	if err != nil {
+		panic(err)
+	}
+	fmt.Printf("Retrived cities: %v\n", cities)
+
+	city, err := saveCity(City{"", "Paris", "France"})
+	if err != nil {
+		panic(err)
+	}
+	fmt.Printf("Saved city: %v\n", city)
 }

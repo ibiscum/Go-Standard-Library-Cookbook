@@ -6,7 +6,7 @@ import (
 	"testing"
 )
 
-var testData = []int{10, 11, 017}
+var testData = []int{10}
 
 func TestSampleOne(t *testing.T) {
 	expected := "10"

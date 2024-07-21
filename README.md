@@ -1,8 +1,6 @@
-
-
-
 # Go Standard Library Cookbook
 [![lint](https://github.com/ibiscum/Go-Standard-Library-Cookbook/actions/workflows/lint.yml/badge.svg)](https://github.com/ibiscum/Go-Standard-Library-Cookbook/actions/workflows/lint.yml)
+[![CodeQL](https://github.com/ibiscum/Go-Standard-Library-Cookbook/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/ibiscum/Go-Standard-Library-Cookbook/actions/workflows/github-code-scanning/codeql)
 
 This is the code repository for [Go Standard Library Cookbook](https://www.packtpub.com/application-development/go-standard-library-cookbook?utm_source=github&utm_medium=repository&utm_campaign=9781788475273), published by [Packt](https://www.packtpub.com/?utm_source=github). It contains all the supporting project files necessary to work through the book from start to finish.
 ## About the Book

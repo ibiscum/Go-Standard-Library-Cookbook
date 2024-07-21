@@ -59,7 +59,6 @@ func main() {
 	// Title and ToLower functions.
 	firstNameCamel := toCamelCase(snakeCase)
 	fmt.Println("Camel case: " + firstNameCamel)
-
 }
 
 func toCamelCase(input string) string {

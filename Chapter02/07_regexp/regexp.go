@@ -21,5 +21,4 @@ func main() {
 	for _, val := range all {
 		fmt.Println(val)
 	}
-
 }

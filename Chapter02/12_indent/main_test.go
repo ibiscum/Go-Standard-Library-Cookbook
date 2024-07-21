@@ -60,3 +60,30 @@ func TestIndent(t *testing.T) {
 		})
 	}
 }
+
+func TestUnindent(t *testing.T) {
+	type args struct {
+		input  string
+		indent int
+	}
+	args_v := args{"    Hi! Go is awesome.", 4}
+	tests := []struct {
+		name string
+		args args
+		want string
+	}{
+		// TODO: Add test cases.
+		{
+			"test8",
+			args_v,
+			"Hi! Go is awesome.",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := Unindent(tt.args.input, tt.args.indent); got != tt.want {
+				t.Errorf("Unindent() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

@@ -26,7 +26,7 @@ func main() {
 		g.Go(func() error {
 			return func(s string) error {
 				if strings.Contains(s, "error:") {
-					return fmt.Errorf(s)
+					return fmt.Errorf("error: %v", s)
 				}
 				return nil
 			}(row)

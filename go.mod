@@ -4,7 +4,7 @@ go 1.24.0
 
 require (
 	github.com/go-sql-driver/mysql v1.8.1
-	github.com/lib/pq v1.10.9
+	github.com/lib/pq v1.11.1
 	golang.org/x/sync v0.19.0
 	golang.org/x/text v0.33.0
 )
